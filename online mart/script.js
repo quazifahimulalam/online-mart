@@ -60,9 +60,29 @@ function updatePrice(){
 function renderList(){
     cartItemContainer.innerHTML = '';
     itemList.forEach((item,index) => {
-        cartItemContainer.innerHTML += `<div class="flex items-center justfy-between">
+        cartItemContainer.innerHTML += `<div class="flex items-center justify-between">
         <span>${index + 1} . ${item.name}</span>
         <i oneclick="removeItem(${index})" class="fa-solid fa-close text-xl mt-1 cursor-pointer font-semibold text-red-600 "></i>
         </div>`
     })
 }
+
+couponButton.addEventListener("click" , () => {
+    const couponcode = couponInput.value.trim();
+    if(couponcode === "DISCOUNT20" && total >= 3000 ){
+        discount = total*0.25
+    }
+    else{
+        discount = 0
+    }
+
+    updatePrice()
+})
+
+purchaseButton.addEventListener( 'click' , () => {
+    itemList = []
+    total = 0
+    discount = 0
+    couponInput.value = "";
+    updatePrice()
+} )
